@@ -41,7 +41,7 @@
         icon
         absolute
         @click="opneFile('#face1')"
-        style="top: 170px; left: 390px"
+        style="top: 172px; left: 392px"
       >
         <v-icon x-large>mdi-camera</v-icon>
       </v-btn>
@@ -50,14 +50,20 @@
         icon
         absolute
         @click="opneFile('#face2')"
-        style="top: 170px; left: 565px"
+        style="top: 172px; left: 567px"
       >
         <v-icon x-large>mdi-camera</v-icon>
       </v-btn>
 
-      <v-btn icon right top absolute @click="download()">
-        <v-icon>mdi-download</v-icon>
-      </v-btn>
+      <div style="position: absolute; top: 410px">
+        <v-btn icon x-large @click="download()">
+          ECオーナーカードダウンロード<v-icon>mdi-download</v-icon>
+        </v-btn>
+
+        <br />
+        ※ECオーナーカードは、あきらとぅ～ん様の画像を使用させていただいています。
+        ※オーナー画像、EC画像は150×150のものを使用してください。（縮小はします。トリミングは未対応です）
+      </div>
     </v-main>
   </v-app>
 </template>
@@ -184,7 +190,7 @@ export default class App extends Vue {
     //ctx.fillText(this.message, 30, 190);
     // 1行ずつ描画
     let idx = 0;
-    for (const value of this.message.split("\n")) { 
+    for (const value of this.message.split("\n")) {
       ctx.fillText(value, 30, 190 + idx * 30);
       idx += 1;
     }
@@ -247,7 +253,7 @@ canvas {
   width: 150px;
   top: 40px;
   left: 160px;
-  font-weight :bold;
+  font-weight: bold;
 }
 
 #name {
@@ -255,7 +261,7 @@ canvas {
   width: 150px;
   top: 75px;
   left: 160px;
-  font-weight :bold;
+  font-weight: bold;
 }
 
 #code {
@@ -263,17 +269,17 @@ canvas {
   width: 150px;
   top: 110px;
   left: 160px;
-  font-weight :bold;
+  font-weight: bold;
 }
 
 #message {
   position: absolute;
   width: 275px;
-  height:135px;
+  height: 135px;
   top: 150px;
   left: 30px;
   margin: 0px;
   padding: 0px;
-  font-weight :bold;
+  font-weight: bold;
 }
 </style>
