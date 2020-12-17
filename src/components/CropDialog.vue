@@ -1,12 +1,10 @@
 <template>
-  <v-dialog v-model="dialog" :max-width="options.width">
+  <v-dialog v-model="dialog" :max-width="options.width" fullscreen>
     <v-card class="px-2 pt-2">
       <vue-cropper
         ref="cropper"
         :src="imageUri"
         :aspectRatio="1"
-        :min-container-width="200"
-        :min-container-height="200"
       >
       </vue-cropper>
 
@@ -30,7 +28,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import VueCropper, { VueCropperJs } from "vue-cropperjs";
+import VueCropper from "vue-cropperjs";
 import "cropperjs/dist/cropper.css";
 
 @Component({

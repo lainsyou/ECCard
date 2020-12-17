@@ -183,6 +183,8 @@ export default class App extends Vue {
       image.src = result as string;
       image.onload = () => {
         // 画像貼付
+        canvas.width = image.width;
+        canvas.height = image.height;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
