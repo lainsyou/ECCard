@@ -56,6 +56,13 @@
       </v-btn>
 
       <div style="position: absolute; top: 410px">
+        <v-radio-group row mandatory v-model="baseUrl" @change="setBaseImage">
+          <v-radio label="ブルー" value="img/EC_000B.png"></v-radio>
+          <v-radio label="ピンク" value="img/EC_000P.png"></v-radio>
+        </v-radio-group>
+
+        <br />
+
         <v-btn icon x-large @click="download()">
           ECオーナーカードダウンロード<v-icon>mdi-download</v-icon>
         </v-btn>
@@ -63,42 +70,56 @@
         <br />
         ※ECオーナーカードは、あきらとぅ～ん様の画像を使用させていただいています。
         <br />
-        ※オーナー画像、EC画像は150×150のものを使用してください。（縮小はします。トリミングは未対応です）
+        ※オーナー画像、EC画像は150×150のものを使用してください。
+        縮小、トリミングも行えますが、不具合で一度選択すると画像変更不可。
       </div>
+
+      <CropDialog ref="cropDialog"></CropDialog>
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import CropDialog from "@/components/CropDialog.vue";
 
 @Component({
-  components: {},
+  components: { CropDialog },
 })
 export default class App extends Vue {
   base!: HTMLCanvasElement;
   face1!: HTMLCanvasElement;
   face2!: HTMLCanvasElement;
   uploadTarget = "";
+  baseUrl = "img/EC_000B.png";
   owner = "";
   name = "";
   code = "";
   message = "";
 
+  $refs!: {
+    cropDialog: CropDialog;
+  };
+
   mounted() {
     this.base = this.$el.querySelector("#base") as HTMLCanvasElement;
     this.face1 = this.$el.querySelector("#face1") as HTMLCanvasElement;
     this.face2 = this.$el.querySelector("#face2") as HTMLCanvasElement;
+    this.setBaseImage();
+  }
 
+  private setBaseImage() {
     // 画像表示
     const ctx = this.base.getContext("2d");
     const image = new Image();
-    image.src = "img/EC_000.png";
+    image.src = this.baseUrl;
     image.onload = () => {
       // 画像貼付
+      ctx?.clearRect(0, 0, this.base.width, this.base.height);
       ctx?.drawImage(image, 0, 0, this.base.width, this.base.height);
     };
   }
+
   /**
    * ファイルダイアログを開く
    */
@@ -135,9 +156,10 @@ export default class App extends Vue {
    */
   private addImageFile(file: File) {
     // Canvas取得
-    const canvas = this.$el.querySelector(
-      this.uploadTarget
-    ) as HTMLCanvasElement;
+    //const canvas = this.$el.querySelector(
+    //  this.uploadTarget
+    //) as HTMLCanvasElement;
+    const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
     if (!ctx) {
       alert("CanvasRenderingContext2D unsupported.");
@@ -159,7 +181,72 @@ export default class App extends Vue {
       image.src = result as string;
       image.onload = () => {
         // 画像貼付
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+        // BlobオブジェクトにアクセスできるURLを生成
+        const base64 = canvas.toDataURL("image/png");
+        // Base64からバイナリへ変換
+        const bin = atob(base64.replace(/^.*,/, ""));
+        const buffer = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) {
+          buffer[i] = bin.charCodeAt(i);
+        }
+
+        // Blobを作成
+        const blob = new Blob([buffer.buffer], {
+          type: "image/png",
+        });
+
+        // ダイアログ表示
+        this.$refs.cropDialog.show(blob);
+        this.$refs.cropDialog.show(blob).then((res) => {
+          const dict = res as {
+            result: boolean;
+            data: { height: number; left: number; top: number; width: number };
+            url: string;
+          };
+
+          console.log(dict);
+          if (dict.result) {
+            const canvas = this.$el.querySelector(
+              this.uploadTarget
+            ) as HTMLCanvasElement;
+            const img = new Image();
+            img.src = dict.url;
+            img.onload = () => {
+              canvas
+                .getContext("2d")
+                ?.drawImage(img, 0, 0, canvas.width, canvas.height);
+            };
+            /*
+            const canvas = this.$el.querySelector(
+              this.uploadTarget
+            ) as HTMLCanvasElement;
+            const ctx = canvas.getContext("2d");
+            ctx?.clearRect(0, 0, canvas.width, canvas.height);
+            const left = Math.floor(dict.data.left);
+            const top = Math.floor(dict.data.top);
+            const width = Math.floor(dict.data.width);
+            const height = Math.floor(dict.data.height);
+            console.log(left);
+            console.log(top);
+            console.log(width);
+            console.log(height);
+            ctx?.drawImage(
+              image,
+              left,
+              top,
+              width,
+              height,
+              0,
+              0,
+              canvas.width,
+              canvas.height
+            );
+            */
+          }
+        });
       };
     };
     reader.readAsDataURL(file);

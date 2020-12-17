@@ -17,6 +17,7 @@
       "vuetify",
       "mocha",
       "chai",
+      "vue-cropperjs"
     ],
     "paths": {
       "@/*": [
