@@ -86,7 +86,7 @@ export default class App extends Vue {
     // 画像表示
     const ctx = this.base.getContext("2d");
     const image = new Image();
-    image.src = "img/EC_w000.png";
+    image.src = "img/EC_000.png";
     image.onload = () => {
       // 画像貼付
       ctx?.drawImage(image, 0, 0, this.base.width, this.base.height);
