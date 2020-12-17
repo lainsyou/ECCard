@@ -41,7 +41,7 @@
         icon
         absolute
         @click="opneFile('#face1')"
-        style="top: 172px; left: 392px"
+        style="top: 175px; left: 392px"
       >
         <v-icon x-large>mdi-camera</v-icon>
       </v-btn>
@@ -50,7 +50,7 @@
         icon
         absolute
         @click="opneFile('#face2')"
-        style="top: 172px; left: 567px"
+        style="top: 175px; left: 567px"
       >
         <v-icon x-large>mdi-camera</v-icon>
       </v-btn>
@@ -62,6 +62,7 @@
 
         <br />
         ※ECオーナーカードは、あきらとぅ～ん様の画像を使用させていただいています。
+        <br />
         ※オーナー画像、EC画像は150×150のものを使用してください。（縮小はします。トリミングは未対応です）
       </div>
     </v-main>
