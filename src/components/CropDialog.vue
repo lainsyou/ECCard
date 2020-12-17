@@ -65,6 +65,7 @@ export default class CropDialog extends Vue {
     };
     this.imageUri = window.URL.createObjectURL(blob);
 
+/*
     window.setTimeout(() => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const cropper = this.$refs.cropper as any;
@@ -73,6 +74,7 @@ export default class CropDialog extends Vue {
       //this.imageUri = window.URL.createObjectURL(blob);
       cropper.src = window.URL.createObjectURL(blob);
     }, 100);
+    */
 
     this.dialog = true;
     this.options = Object.assign(this.options, options);
