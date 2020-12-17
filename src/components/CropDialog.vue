@@ -5,8 +5,8 @@
         ref="cropper"
         :src="imageUri"
         :aspectRatio="1"
-        :min-container-width="400"
-        :min-container-height="400"
+        :min-container-width="200"
+        :min-container-height="200"
       >
       </vue-cropper>
 
