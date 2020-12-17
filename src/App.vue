@@ -74,7 +74,8 @@
         縮小、トリミングも行えますが、不具合で一度選択すると画像変更不可。
       </div>
 
-      <CropDialog ref="cropDialog"></CropDialog>
+      <CropDialog ref="cropDialog1"></CropDialog>
+      <CropDialog ref="cropDialog2"></CropDialog>
     </v-main>
   </v-app>
 </template>
@@ -98,7 +99,8 @@ export default class App extends Vue {
   message = "";
 
   $refs!: {
-    cropDialog: CropDialog;
+    cropDialog1: CropDialog;
+    cropDialog2: CropDialog;
   };
 
   mounted() {
@@ -198,9 +200,14 @@ export default class App extends Vue {
           type: "image/png",
         });
 
+        let cropDialog = this.$refs.cropDialog1;
+        if (this.uploadTarget === "#face2") {
+          cropDialog = this.$refs.cropDialog2;
+        }
+
         // ダイアログ表示
-        this.$refs.cropDialog.show(blob);
-        this.$refs.cropDialog.show(blob).then((res) => {
+        cropDialog.show(blob);
+        cropDialog.show(blob).then((res) => {
           const dict = res as {
             result: boolean;
             data: { height: number; left: number; top: number; width: number };
