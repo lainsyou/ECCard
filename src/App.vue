@@ -392,9 +392,9 @@ export default class App extends Vue {
     ctx.fillStyle = this.messageColor;
     //ctx.fillText(this.message, 30, 190);
     // 1行ずつ描画
-    let idx = 0;
+    let idx = 1;
     for (const value of this.message.split("\n")) {
-      ctx.fillText(value, 30, 190 + idx * this.messageFontSize * 1.5);
+      ctx.fillText(value, 30, 160 + idx * this.messageFontSize * 1.5);
       idx += 1;
     }
 
