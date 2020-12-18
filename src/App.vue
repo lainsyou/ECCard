@@ -271,7 +271,7 @@ export default class App extends Vue {
       image.onload = () => {
         // 画像貼付
         const saw = screen.availWidth;
-        const sah = screen.availHeight * 0.8;
+        const sah = screen.availHeight * 0.7;
         let w = image.width;
         let h = image.height;
         if (w > saw || h > sah) {
