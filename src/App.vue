@@ -13,7 +13,7 @@
           class="owner-field"
           :color="ownerColor"
           :style="{ color: ownerColor }"
-          ><template slot="append">
+          ><template slot="append-outer">
             <input
               type="color"
               v-model="ownerColor"
@@ -33,7 +33,7 @@
           class="name-field"
           :color="nameColor"
           :style="{ color: nameColor }"
-          ><template slot="append">
+          ><template slot="append-outer">
             <input
               type="color"
               v-model="nameColor"
@@ -53,7 +53,7 @@
           class="code-field"
           :color="codeColor"
           :style="{ color: codeColor }"
-          ><template slot="append">
+          ><template slot="append-outer">
             <input
               type="color"
               v-model="codeColor"
@@ -70,10 +70,9 @@
           v-model="message"
           hide-details
           class="message-field"
-          auto-grow
           :color="messageColor"
           :style="{ color: messageColor, fontSize: messageFontSize + 'px' }"
-          ><template slot="append">
+          ><template slot="append-outer">
             <input
               type="color"
               v-model="messageColor"
@@ -88,6 +87,7 @@
           type="number"
           min="8"
           max="48"
+          step="1"
           v-model="messageFontSize"
           style="
             position: absolute;
