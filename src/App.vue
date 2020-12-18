@@ -9,8 +9,20 @@
         <v-text-field
           v-model="owner"
           placeholder="Owner"
-          hide-details
-          :clearable="true"
+          hide-details=""
+          class="owner-field"
+          :color="ownerColor"
+          :style="{ color: ownerColor }"
+          ><template slot="append">
+            <input
+              type="color"
+              v-model="ownerColor"
+              style="
+                width: 20px;
+                height: 25px;
+                margin: 0;
+                padding: 0;
+              " /></template
         ></v-text-field>
       </div>
       <div id="name">
@@ -18,7 +30,19 @@
           v-model="name"
           placeholder="Name"
           hide-details
-          :clearable="true"
+          class="name-field"
+          :color="nameColor"
+          :style="{ color: nameColor }"
+          ><template slot="append">
+            <input
+              type="color"
+              v-model="nameColor"
+              style="
+                width: 20px;
+                height: 25px;
+                margin: 0;
+                padding: 0;
+              " /></template
         ></v-text-field>
       </div>
       <div id="code">
@@ -26,15 +50,55 @@
           v-model="code"
           placeholder="Code"
           hide-details
-          :clearable="true"
+          class="code-field"
+          :color="codeColor"
+          :style="{ color: codeColor }"
+          ><template slot="append">
+            <input
+              type="color"
+              v-model="codeColor"
+              style="
+                width: 20px;
+                height: 25px;
+                margin: 0;
+                padding: 0;
+              " /></template
         ></v-text-field>
       </div>
       <div id="message">
         <v-textarea
           v-model="message"
           hide-details
-          :clearable="true"
+          class="message-field"
+          auto-grow
+          :color="messageColor"
+          :style="{ color: messageColor, fontSize: messageFontSize + 'px' }"
+          ><template slot="append">
+            <input
+              type="color"
+              v-model="messageColor"
+              style="
+                width: 20px;
+                height: 25px;
+                margin: 0;
+                padding: 0;
+              " /></template
         ></v-textarea>
+        <input
+          type="number"
+          min="8"
+          max="48"
+          v-model="messageFontSize"
+          style="
+            position: absolute;
+            top: 20px;
+            left: 220px;
+            width: 35px;
+            height: 25px;
+            margin: 0;
+            padding: 0;
+          "
+        />
       </div>
 
       <v-btn
@@ -81,7 +145,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import CropDialog from "@/components/CropDialog.vue";
 
 @Component({
@@ -93,15 +157,38 @@ export default class App extends Vue {
   face2!: HTMLCanvasElement;
   uploadTarget = "";
   baseUrl = "img/EC_000B.png";
+
   owner = "";
   name = "";
   code = "";
   message = "";
 
+  @Prop({ default: "black" })
+  ownerColor = "black";
+  @Prop({ default: "black" })
+  nameColor = "black";
+  @Prop({ default: "black" })
+  codeColor = "black";
+  @Prop({ default: "black" })
+  messageColor = "black";
+
+  @Prop({ default: 20 })
+  messageFontSize = 20;
+
   $refs!: {
     cropDialog1: CropDialog;
     cropDialog2: CropDialog;
   };
+
+  get styles() {
+    return {
+      "--ownerColor": this.ownerColor,
+      "--nameColor": this.nameColor,
+      "--codeColor": this.codeColor,
+      "--messageColor": this.messageColor,
+      "--messageFontSize": this.messageFontSize,
+    };
+  }
 
   mounted() {
     this.base = this.$el.querySelector("#base") as HTMLCanvasElement;
@@ -281,14 +368,20 @@ export default class App extends Vue {
     ctx.drawImage(this.face1, 335, 110);
     ctx.drawImage(this.face2, 510, 110);
     ctx.font = "bold 20px sans-serif";
+    ctx.fillStyle = this.ownerColor;
     ctx.fillText(this.owner, 160, 80);
+    ctx.fillStyle = this.nameColor;
     ctx.fillText(this.name, 160, 115);
+    ctx.fillStyle = this.codeColor;
     ctx.fillText(this.code, 160, 150);
+
+    ctx.font = `bold ${this.messageFontSize}px sans-serif`;
+    ctx.fillStyle = this.messageColor;
     //ctx.fillText(this.message, 30, 190);
     // 1行ずつ描画
     let idx = 0;
     for (const value of this.message.split("\n")) {
-      ctx.fillText(value, 30, 190 + idx * 30);
+      ctx.fillText(value, 30, 190 + idx * this.messageFontSize * 1.5);
       idx += 1;
     }
 
@@ -378,5 +471,22 @@ canvas {
   margin: 0px;
   padding: 0px;
   font-weight: bold;
+}
+
+.theme--light.v-input.owner-field input {
+  color: var(--ownerColor);
+}
+
+.theme--light.v-input.name-field input {
+  color: var(--nameColor);
+}
+
+.theme--light.v-input.code-field input {
+  color: var(--codeColor);
+}
+
+.theme--light.v-input.message-field textarea {
+  color: var(--messageColor);
+  line-height: var(--messageFontSize) px;
 }
 </style>
