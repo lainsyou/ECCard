@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" :max-width="options.width" fullscreen>
+  <v-dialog v-model="dialog" fullscreen>
     <v-card class="px-2 pt-2">
       <vue-cropper
         ref="cropper"
@@ -57,7 +57,6 @@ export default class CropDialog extends Vue {
   public showOptions(options: any, blob: Blob) {
     this.options = {
       color: "primary",
-      width: 800,
       agree: "OK",
       cancel: "キャンセル",
     };

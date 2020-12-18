@@ -92,7 +92,7 @@
           style="
             position: absolute;
             top: 20px;
-            left: 220px;
+            left: 240px;
             width: 35px;
             height: 25px;
             margin: 0;
@@ -270,8 +270,21 @@ export default class App extends Vue {
       image.src = result as string;
       image.onload = () => {
         // 画像貼付
-        canvas.width = image.width;
-        canvas.height = image.height;
+        const saw = screen.availWidth;
+        const sah = screen.availHeight * 0.8;
+        let w = image.width;
+        let h = image.height;
+        if (w > saw || h > sah) {
+          const pw = saw / w;
+          const ph = sah / h;
+          const p = Math.min(pw, ph);
+          w = Math.floor(w * p);
+          h = Math.floor(h * p);
+        }
+        console.log(w);
+        console.log(h);
+        canvas.width = w;
+        canvas.height = h;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
@@ -440,7 +453,7 @@ canvas {
 
 #owner {
   position: absolute;
-  width: 150px;
+  width: 160px;
   top: 40px;
   left: 160px;
   font-weight: bold;
@@ -448,7 +461,7 @@ canvas {
 
 #name {
   position: absolute;
-  width: 150px;
+  width: 160px;
   top: 75px;
   left: 160px;
   font-weight: bold;
@@ -456,7 +469,7 @@ canvas {
 
 #code {
   position: absolute;
-  width: 150px;
+  width: 160px;
   top: 110px;
   left: 160px;
   font-weight: bold;
@@ -464,7 +477,7 @@ canvas {
 
 #message {
   position: absolute;
-  width: 275px;
+  width: 295px;
   height: 135px;
   top: 150px;
   left: 30px;
