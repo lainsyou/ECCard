@@ -1,13 +1,6 @@
 <template>
-  <v-dialog v-model="dialog" fullscreen>
+  <v-dialog v-model="dialog" :max-width="options.width" fullscreen>
     <v-card class="px-2 pt-2">
-      <vue-cropper
-        ref="cropper"
-        :src="imageUri"
-        :aspectRatio="1"
-      >
-      </vue-cropper>
-
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn
@@ -22,6 +15,13 @@
           options.agree
         }}</v-btn>
       </v-card-actions>
+
+      <vue-cropper
+        ref="cropper"
+        :src="imageUri"
+        :aspectRatio="1"
+      >
+      </vue-cropper>
     </v-card>
   </v-dialog>
 </template>
@@ -57,6 +57,7 @@ export default class CropDialog extends Vue {
   public showOptions(options: any, blob: Blob) {
     this.options = {
       color: "primary",
+      width: 800,
       agree: "OK",
       cancel: "キャンセル",
     };

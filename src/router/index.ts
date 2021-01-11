@@ -1,23 +1,33 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
+import Blue from '../views/Blue.vue'
+import Pink from '../views/Pink.vue'
+import Red from '../views/Red.vue'
+import Gold from '../views/Gold.vue'
 
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Blue',
+    component: Blue
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: '/Pink',
+    name: 'Pink',
+    component: Pink
+  },
+  {
+    path: '/Red',
+    name: 'Red',
+    component: Red
+  },
+  {
+    path: '/Gold',
+    name: 'Gold',
+    component: Gold
+  },
 ]
 
 const router = new VueRouter({
