@@ -23,7 +23,7 @@
         <v-list nav dense>
           <v-subheader class="white--text">デザイン選択</v-subheader>
           <v-list-item-group v-model="item">
-            <v-list-item :to="{ name: 'Blue' }" v-on:click="test">
+            <v-list-item :to="{ name: 'Blue' }">
               <v-list-item-icon>
                 <v-icon v-if="item == 0" color="white"
                   >mdi-check-circle-outline</v-icon
@@ -37,7 +37,7 @@
               >
             </v-list-item>
 
-            <v-list-item :to="{ name: 'Pink' }" v-on:click="test">
+            <v-list-item :to="{ name: 'Pink' }">
               <v-list-item-icon>
                 <v-icon v-if="item == 1" color="white"
                   >mdi-check-circle-outline</v-icon
@@ -51,7 +51,7 @@
               >
             </v-list-item>
 
-            <v-list-item :to="{ name: 'Red' }" v-on:click="test">
+            <v-list-item :to="{ name: 'Red' }">
               <v-list-item-icon>
                 <v-icon v-if="item == 2" color="white"
                   >mdi-check-circle-outline</v-icon
@@ -63,7 +63,7 @@
               <v-list-item-content class="white--text">Red</v-list-item-content>
             </v-list-item>
 
-            <v-list-item :to="{ name: 'Gold' }" v-on:click="test">
+            <v-list-item :to="{ name: 'Gold' }">
               <v-list-item-icon>
                 <v-icon v-if="item == 3" color="white"
                   >mdi-check-circle-outline</v-icon
@@ -126,8 +126,9 @@ export default class App extends Vue {
   private drawer = false;
   private item = -1;
 
-  test() {
-    console.log("");
+  mounted() {
+    this.item = -1;
+    this.$router.push({ name: "Home" });
   }
 
   download() {
