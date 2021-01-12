@@ -332,12 +332,12 @@ export default class Red extends Vue {
     ctx.fillText(this.code, 25, 138);
 
     ctx.beginPath();
-    this.drawRoundRectImage(ctx, 28, 200, 145, 145, 15);
-    this.drawRoundRectImage(ctx, 435, 87, 200, 200, 15);
+    this.drawRoundRectImage(ctx, 26, 192, 140, 140, 15);
+    this.drawRoundRectImage(ctx, 418, 83, 192, 192, 15);
     ctx.closePath();
     ctx.clip();
-    ctx.drawImage(this.face1, 28, 200);
-    ctx.drawImage(this.face2, 435, 87);
+    ctx.drawImage(this.face1, 26, 192);
+    ctx.drawImage(this.face2, 418, 83);
 
     // BlobオブジェクトにアクセスできるURLを生成
     const base64 = canvas.toDataURL("image/png");
