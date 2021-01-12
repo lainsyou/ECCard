@@ -1,20 +1,20 @@
 <template>
   <div>
-    <canvas id="base" width="700px" height="400ox" />
+    <canvas id="base" width="672px" height="384ox" />
     <canvas
       id="face1"
-      width="160px"
-      height="160ox"
-      style="top: 28px; left: 28px; border-radius: 90px"
+      width="152px"
+      height="152ox"
+      style="top: 27px; left: 27px; border-radius: 90px"
     />
     <canvas
       id="face2"
-      width="200px"
-      height="200ox"
-      style="top: 118px; left: 366px; border-radius: 25px"
+      width="191px"
+      height="191ox"
+      style="top: 113px; left: 351px; border-radius: 25px"
     />
 
-    <div id="owner" style="width: 250px; top: 25px; left: 530px">
+    <div id="owner" style="width: 150px; top: 36px; left: 510px">
       <v-text-field
         v-model="owner"
         placeholder="Owner"
@@ -22,6 +22,7 @@
         class="owner-field"
         :color="ownerColor"
         :style="{ color: ownerColor }"
+        dense
         ><template slot="append-outer">
           <input
             type="color"
@@ -30,7 +31,7 @@
             v-on:change="changeStyle" /></template
       ></v-text-field>
     </div>
-    <div id="name" style="width: 255px; top: 52px; left: 525px">
+    <div id="name" style="width: 155px; top: 61px; left: 505px">
       <v-text-field
         v-model="name"
         placeholder="Name"
@@ -38,6 +39,7 @@
         class="name-field"
         :color="nameColor"
         :style="{ color: nameColor }"
+        dense
         ><template slot="append-outer">
           <input
             type="color"
@@ -46,7 +48,7 @@
             v-on:change="changeStyle" /></template
       ></v-text-field>
     </div>
-    <div id="code" style="width: 300px; top: 78px; left: 480px">
+    <div id="code" style="width: 200px; top: 86px; left: 460px">
       <v-text-field
         v-model="code"
         placeholder="Code"
@@ -54,6 +56,7 @@
         class="code-field"
         :color="codeColor"
         :style="{ color: codeColor }"
+        dense
         ><template slot="append-outer">
           <input
             type="color"
@@ -67,7 +70,7 @@
       icon
       absolute
       @click="opneFile('#face1')"
-      style="top: 95px; left: 88px"
+      style="top: 90px; left: 85px"
       color="red lighten-1"
     >
       <v-icon x-large>mdi-camera</v-icon>
@@ -77,7 +80,7 @@
       icon
       absolute
       @click="opneFile('#face2')"
-      style="top: 200px; left: 448px"
+      style="top: 193px; left: 430px"
       color="red lighten-1"
     >
       <v-icon x-large>mdi-camera</v-icon>
@@ -143,6 +146,10 @@ export default class Gold extends Vue {
 
     this.$router.app.$off("download");
     this.$router.app.$on("download", this.download);
+
+    this.owner = this.$store.state.owner;
+    this.name = this.$store.state.name;
+    this.code = this.$store.state.code;
   }
 
   private setBaseImage() {
@@ -301,6 +308,10 @@ export default class Gold extends Vue {
    * @param {Photo} photo  Photo
    */
   private download() {
+    this.$store.dispatch("setOwner", { owner: this.owner });
+    this.$store.dispatch("setName", { name: this.name });
+    this.$store.dispatch("setCode", { code: this.code });
+
     // Canvas取得
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
@@ -308,26 +319,26 @@ export default class Gold extends Vue {
       alert("CanvasRenderingContext2D unsupported.");
       return;
     }
-    canvas.width = 700;
-    canvas.height = 400;
+    canvas.width = 840;
+    canvas.height = 480;
 
     // canvasに画像を貼り付ける
     ctx.drawImage(this.base, 0, 0);
-    ctx.font = "bold 18px sans-serif";
+    ctx.font = "bold 16px sans-serif";
     ctx.fillStyle = this.ownerColor;
-    ctx.fillText(this.owner, 530, 64);
+    ctx.fillText(this.owner, 510, 60);
     ctx.fillStyle = this.nameColor;
-    ctx.fillText(this.name, 525, 90);
+    ctx.fillText(this.name, 505, 86);
     ctx.fillStyle = this.codeColor;
-    ctx.fillText(this.code, 480, 116);
+    ctx.fillText(this.code, 460, 110);
 
     ctx.beginPath();
-    this.drawRoundRectImage(ctx, 28, 28, 160, 160, 90);
-    this.drawRoundRectImage(ctx, 366, 118, 200, 200, 25);
+    this.drawRoundRectImage(ctx, 27, 27, 152, 152, 76);
+    this.drawRoundRectImage(ctx, 352, 114, 191, 191, 25);
     ctx.closePath();
     ctx.clip();
-    ctx.drawImage(this.face1, 28, 28);
-    ctx.drawImage(this.face2, 366, 118);
+    ctx.drawImage(this.face1, 27, 27);
+    ctx.drawImage(this.face2, 352, 114);
 
     // BlobオブジェクトにアクセスできるURLを生成
     const base64 = canvas.toDataURL("image/png");

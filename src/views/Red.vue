@@ -1,20 +1,20 @@
 <template>
   <div>
-    <canvas id="base" width="700px" height="400ox" />
+    <canvas id="base" width="672px" height="384ox" />
     <canvas
       id="face1"
-      width="145px"
-      height="145ox"
-      style="top: 200px; left: 28px; border-radius: 15px"
+      width="140px"
+      height="140ox"
+      style="top: 192px; left: 26px; border-radius: 15px"
     />
     <canvas
       id="face2"
-      width="200px"
-      height="200ox"
-      style="top: 87px; left: 435px; border-radius: 15px"
+      width="193px"
+      height="193ox"
+      style="top: 82px; left: 417px; border-radius: 15px"
     />
 
-    <div id="owner" style="width: 165px; top: 210px; left: 190px">
+    <div id="owner" style="width: 155px; top: 205px; left: 185px">
       <v-text-field
         v-model="owner"
         placeholder="Owner"
@@ -30,7 +30,7 @@
             v-on:change="changeStyle" /></template
       ></v-text-field>
     </div>
-    <div id="name" style="width: 140px; top: 101px; left: 290px">
+    <div id="name" style="width: 135px; top: 100px; left: 278px">
       <v-text-field
         v-model="name"
         placeholder="Name"
@@ -46,7 +46,7 @@
             v-on:change="changeStyle" /></template
       ></v-text-field>
     </div>
-    <div id="code" style="width: 190px; top: 101px; left: 22px">
+    <div id="code" style="width: 185px; top: 100px; left: 22px">
       <v-text-field
         v-model="code"
         placeholder="Code"
@@ -67,7 +67,7 @@
       icon
       absolute
       @click="opneFile('#face1')"
-      style="top: 255px; left: 82px"
+      style="top: 245px; left: 78px"
       color="white"
     >
       <v-icon x-large>mdi-camera</v-icon>
@@ -77,7 +77,7 @@
       icon
       absolute
       @click="opneFile('#face2')"
-      style="top: 170px; left: 517px"
+      style="top: 163px; left: 496px"
       color="white"
     >
       <v-icon x-large>mdi-camera</v-icon>
@@ -106,8 +106,8 @@ export default class Red extends Vue {
   name = "";
   code = "";
 
-  ownerColor = "white";
-  nameColor = "white";
+  ownerColor = "black";
+  nameColor = "red";
   codeColor = "white";
 
   $refs!: {
@@ -143,6 +143,10 @@ export default class Red extends Vue {
 
     this.$router.app.$off("download");
     this.$router.app.$on("download", this.download);
+
+    this.owner = this.$store.state.owner;
+    this.name = this.$store.state.name;
+    this.code = this.$store.state.code;
 
     this.changeStyle();
   }
@@ -303,6 +307,10 @@ export default class Red extends Vue {
    * @param {Photo} photo  Photo
    */
   private download() {
+    this.$store.dispatch("setOwner", { owner: this.owner });
+    this.$store.dispatch("setName", { name: this.name });
+    this.$store.dispatch("setCode", { code: this.code });
+    
     // Canvas取得
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
@@ -310,18 +318,18 @@ export default class Red extends Vue {
       alert("CanvasRenderingContext2D unsupported.");
       return;
     }
-    canvas.width = 700;
-    canvas.height = 400;
+    canvas.width = 840;
+    canvas.height = 480;
 
     // canvasに画像を貼り付ける
     ctx.drawImage(this.base, 0, 0);
     ctx.font = "bold 18px sans-serif";
     ctx.fillStyle = this.ownerColor;
-    ctx.fillText(this.owner, 190, 250);
+    ctx.fillText(this.owner, 185, 243);
     ctx.fillStyle = this.nameColor;
-    ctx.fillText(this.name, 290, 141);
+    ctx.fillText(this.name, 279, 138);
     ctx.fillStyle = this.codeColor;
-    ctx.fillText(this.code, 22, 141);
+    ctx.fillText(this.code, 25, 138);
 
     ctx.beginPath();
     this.drawRoundRectImage(ctx, 28, 200, 145, 145, 15);

@@ -2,6 +2,7 @@
   <v-dialog v-model="dialog" :max-width="options.width" fullscreen>
     <v-card class="px-2 pt-2">
       <v-card-actions>
+        <span style="font-size:x-small;">※不具合で一度選択すると画像変更不可。<br />一度、他のデザインに変更するといける。</span>
         <v-spacer></v-spacer>
         <v-btn
           v-show="options.cancel"

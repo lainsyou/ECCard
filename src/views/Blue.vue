@@ -174,6 +174,11 @@ export default class Gold extends Vue {
 
     this.$router.app.$off("download");
     this.$router.app.$on("download", this.download);
+
+    this.owner = this.$store.state.owner;
+    this.name = this.$store.state.name;
+    this.code = this.$store.state.code;
+    this.message = this.$store.state.message;
   }
 
   private setBaseImage() {
@@ -345,6 +350,11 @@ export default class Gold extends Vue {
    * @param {Photo} photo  Photo
    */
   private download() {
+    this.$store.dispatch("setOwner", { owner: this.owner });
+    this.$store.dispatch("setName", { name: this.name });
+    this.$store.dispatch("setCode", { code: this.code });
+    this.$store.dispatch("setMessage", { message: this.message });
+
     // Canvas取得
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");

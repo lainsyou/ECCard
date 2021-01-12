@@ -21,6 +21,7 @@
         temporary
       >
         <v-list nav dense>
+          <v-subheader class="white--text">デザイン選択</v-subheader>
           <v-list-item-group v-model="item">
             <v-list-item :to="{ name: 'Blue' }" v-on:click="test">
               <v-list-item-icon>
@@ -31,7 +32,9 @@
                   >mdi-checkbox-blank-circle-outline</v-icon
                 >
               </v-list-item-icon>
-              <v-list-item-title class="white--text">Blue</v-list-item-title>
+              <v-list-item-content class="white--text"
+                >Blue</v-list-item-content
+              >
             </v-list-item>
 
             <v-list-item :to="{ name: 'Pink' }" v-on:click="test">
@@ -43,7 +46,9 @@
                   >mdi-checkbox-blank-circle-outline</v-icon
                 >
               </v-list-item-icon>
-              <v-list-item-title class="white--text">Pink</v-list-item-title>
+              <v-list-item-content class="white--text"
+                >Pink</v-list-item-content
+              >
             </v-list-item>
 
             <v-list-item :to="{ name: 'Red' }" v-on:click="test">
@@ -55,7 +60,7 @@
                   >mdi-checkbox-blank-circle-outline</v-icon
                 >
               </v-list-item-icon>
-              <v-list-item-title class="white--text">Red</v-list-item-title>
+              <v-list-item-content class="white--text">Red</v-list-item-content>
             </v-list-item>
 
             <v-list-item :to="{ name: 'Gold' }" v-on:click="test">
@@ -67,9 +72,40 @@
                   >mdi-checkbox-blank-circle-outline</v-icon
                 >
               </v-list-item-icon>
-              <v-list-item-title class="white--text">Gold</v-list-item-title>
+              <v-list-item-content class="white--text"
+                >Gold</v-list-item-content
+              >
             </v-list-item>
           </v-list-item-group>
+
+          <v-divider></v-divider>
+          <v-subheader class="white--text">連絡先</v-subheader>
+
+          <v-list-item href="https://twitter.com/Akira_Yasai">
+            <v-list-item-icon>
+              <v-icon color="white">mdi-twitter</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content class="white--text"
+              >あきらとぅ～ん</v-list-item-content
+            >
+          </v-list-item>
+
+          <v-list-item href="https://twitter.com/lainsyou">
+            <v-list-item-icon>
+              <v-icon color="white">mdi-twitter</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content class="white--text"
+              >不具合報告</v-list-item-content
+            >
+          </v-list-item>
+
+          <v-divider></v-divider>
+          <v-subheader class="white--text">更新日</v-subheader>
+          <v-list-item>
+            <v-list-item-content class="white--text"
+              >2021/01/12</v-list-item-content
+            >
+          </v-list-item>
         </v-list>
       </v-navigation-drawer>
 
