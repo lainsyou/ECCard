@@ -103,7 +103,7 @@ export default class Gold extends Vue {
   face1!: HTMLCanvasElement;
   face2!: HTMLCanvasElement;
   uploadTarget = "";
-  baseUrl = "ECCard/img/EC_002.jpg";
+  baseUrl = "/ECCard/img/EC_002.jpg";
 
   owner = "";
   name = "";

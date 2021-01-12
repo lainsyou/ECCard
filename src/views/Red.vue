@@ -100,7 +100,7 @@ export default class Red extends Vue {
   face1!: HTMLCanvasElement;
   face2!: HTMLCanvasElement;
   uploadTarget = "";
-  baseUrl = "ECCard/img/EC_001.jpg";
+  baseUrl = "/ECCard/img/EC_001.jpg";
 
   owner = "";
   name = "";

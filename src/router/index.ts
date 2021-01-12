@@ -15,22 +15,22 @@ const routes: Array<RouteConfig> = [
     component: Home
   },
   {
-    path: '/Blue',
+    path: '/ECCard/Blue',
     name: 'Blue',
     component: Blue
   },
   {
-    path: '/Pink',
+    path: '/ECCard/Pink',
     name: 'Pink',
     component: Pink
   },
   {
-    path: '/Red',
+    path: '/ECCard/Red',
     name: 'Red',
     component: Red
   },
   {
-    path: '/Gold',
+    path: '/ECCard/Gold',
     name: 'Gold',
     component: Gold
   },

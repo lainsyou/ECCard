@@ -1,8 +1,10 @@
 <template>
   <div>
     <pre style="text-align: left">
-      
+
     ECオーナーカードを作成します。
+    横画面の方が操作しやすいと思います。
+
     左上の<v-icon>mdi-menu</v-icon>メニューからデザインを選択してください。
     右上の<v-icon>mdi-download</v-icon>ダウンロードボタンで保存できます。
     

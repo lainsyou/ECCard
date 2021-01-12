@@ -128,7 +128,7 @@ export default class App extends Vue {
 
   mounted() {
     this.item = -1;
-    this.$router.push({ name: "Home" });
+    this.$router.push({ name: "Home" }).catch(() => {console.log("")});
   }
 
   download() {
