@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
+import Home from '../views/Home.vue'
 import Blue from '../views/Blue.vue'
 import Pink from '../views/Pink.vue'
 import Red from '../views/Red.vue'
@@ -10,6 +11,11 @@ Vue.use(VueRouter)
 const routes: Array<RouteConfig> = [
   {
     path: '/',
+    name: 'Home',
+    component: Home
+  },
+  {
+    path: '/Blue',
     name: 'Blue',
     component: Blue
   },

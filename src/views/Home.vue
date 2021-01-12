@@ -1,15 +1,21 @@
 <template>
-  <v-container fluid>
-        <canvas id="picture" width="1050px" height="600ox" style="background:red;"></canvas>
-  </v-container>
+  <div>
+    <pre style="text-align: left">
+      
+    ECオーナーカードを作成します。
+    左上の<v-icon>mdi-menu</v-icon>メニューからデザインを選択してください。
+    右上の<v-icon>mdi-download</v-icon>ダウンロードボタンで保存できます。
+    
+    ※ECオーナーカードは、あきらとぅ～ん様の画像を使用させていただいています。  
+    </pre>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({
-  components: {}
+  components: {},
 })
-export default class Home extends Vue {
-}
+export default class Home extends Vue {}
 </script>

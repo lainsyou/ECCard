@@ -124,7 +124,7 @@ import { Component, Vue } from "vue-property-decorator";
 })
 export default class App extends Vue {
   private drawer = false;
-  private item = 0;
+  private item = -1;
 
   test() {
     console.log("");
