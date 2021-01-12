@@ -89,7 +89,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import CropDialog from "@/components/CropDialog.vue";
 
 @Component({
@@ -310,7 +310,7 @@ export default class Red extends Vue {
     this.$store.dispatch("setOwner", { owner: this.owner });
     this.$store.dispatch("setName", { name: this.name });
     this.$store.dispatch("setCode", { code: this.code });
-    
+
     // Canvas取得
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
@@ -322,41 +322,46 @@ export default class Red extends Vue {
     canvas.height = 480;
 
     // canvasに画像を貼り付ける
-    ctx.drawImage(this.base, 0, 0);
-    ctx.font = "bold 18px sans-serif";
-    ctx.fillStyle = this.ownerColor;
-    ctx.fillText(this.owner, 185, 243);
-    ctx.fillStyle = this.nameColor;
-    ctx.fillText(this.name, 279, 138);
-    ctx.fillStyle = this.codeColor;
-    ctx.fillText(this.code, 25, 138);
+    const image = new Image();
+    image.src = this.baseUrl;
+    image.onload = () => {
+      ctx.drawImage(image, 0, 0);
 
-    ctx.beginPath();
-    this.drawRoundRectImage(ctx, 26, 192, 140, 140, 15);
-    this.drawRoundRectImage(ctx, 417, 83, 193, 193, 15);
-    ctx.closePath();
-    ctx.clip();
-    ctx.drawImage(this.face1, 26, 192);
-    ctx.drawImage(this.face2, 417, 83);
+      ctx.font = "bold 22px sans-serif";
+      ctx.fillStyle = this.ownerColor;
+      ctx.fillText(this.owner, 231, 304);
+      ctx.fillStyle = this.nameColor;
+      ctx.fillText(this.name, 348, 175);
+      ctx.fillStyle = this.codeColor;
+      ctx.fillText(this.code, 30, 173);
 
-    // BlobオブジェクトにアクセスできるURLを生成
-    const base64 = canvas.toDataURL("image/png");
-    // Base64からバイナリへ変換
-    const bin = atob(base64.replace(/^.*,/, ""));
-    const buffer = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; i++) {
-      buffer[i] = bin.charCodeAt(i);
-    }
+      ctx.beginPath();
+      this.drawRoundRectImage(ctx, 32, 240, 175, 175, 15);
+      this.drawRoundRectImage(ctx, 522, 104, 240, 240, 15);
+      ctx.closePath();
+      ctx.clip();
+      ctx.drawImage(this.face1, 32, 240, 175, 175);
+      ctx.drawImage(this.face2, 522, 104, 240, 240);
 
-    // Blobを作成
-    const blob = new Blob([buffer.buffer], {
-      type: "image/png",
-    });
+      // BlobオブジェクトにアクセスできるURLを生成
+      const base64 = canvas.toDataURL("image/png");
+      // Base64からバイナリへ変換
+      const bin = atob(base64.replace(/^.*,/, ""));
+      const buffer = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) {
+        buffer[i] = bin.charCodeAt(i);
+      }
 
-    const link = document.createElement("a");
-    link.href = window.URL.createObjectURL(blob);
-    link.download = "eccard.png";
-    link.click();
+      // Blobを作成
+      const blob = new Blob([buffer.buffer], {
+        type: "image/png",
+      });
+
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = "eccard.png";
+      link.click();
+    };
   }
 
   drawRoundRectImage(

@@ -103,7 +103,7 @@
           <v-subheader class="white--text">更新日</v-subheader>
           <v-list-item>
             <v-list-item-content class="white--text"
-              >2021/01/12</v-list-item-content
+              >2021/01/12 - 2</v-list-item-content
             >
           </v-list-item>
         </v-list>

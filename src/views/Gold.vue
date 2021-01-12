@@ -9,8 +9,8 @@
     />
     <canvas
       id="face2"
-      width="191px"
-      height="191ox"
+      width="192px"
+      height="192ox"
       style="top: 113px; left: 351px; border-radius: 25px"
     />
 
@@ -92,7 +92,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import CropDialog from "@/components/CropDialog.vue";
 
 @Component({
@@ -323,41 +323,46 @@ export default class Gold extends Vue {
     canvas.height = 480;
 
     // canvasに画像を貼り付ける
-    ctx.drawImage(this.base, 0, 0);
-    ctx.font = "bold 16px sans-serif";
-    ctx.fillStyle = this.ownerColor;
-    ctx.fillText(this.owner, 510, 60);
-    ctx.fillStyle = this.nameColor;
-    ctx.fillText(this.name, 505, 86);
-    ctx.fillStyle = this.codeColor;
-    ctx.fillText(this.code, 460, 110);
+    const image = new Image();
+    image.src = this.baseUrl;
+    image.onload = () => {
+      ctx?.drawImage(image, 0, 0);
 
-    ctx.beginPath();
-    this.drawRoundRectImage(ctx, 27, 27, 152, 152, 76);
-    this.drawRoundRectImage(ctx, 352, 114, 191, 191, 25);
-    ctx.closePath();
-    ctx.clip();
-    ctx.drawImage(this.face1, 27, 27);
-    ctx.drawImage(this.face2, 352, 114);
+      ctx.font = "bold 22px sans-serif";
+      ctx.fillStyle = this.ownerColor;
+      ctx.fillText(this.owner, 638, 75);
+      ctx.fillStyle = this.nameColor;
+      ctx.fillText(this.name, 631, 107);
+      ctx.fillStyle = this.codeColor;
+      ctx.fillText(this.code, 575, 137);
 
-    // BlobオブジェクトにアクセスできるURLを生成
-    const base64 = canvas.toDataURL("image/png");
-    // Base64からバイナリへ変換
-    const bin = atob(base64.replace(/^.*,/, ""));
-    const buffer = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; i++) {
-      buffer[i] = bin.charCodeAt(i);
-    }
+      ctx.beginPath();
+      this.drawRoundRectImage(ctx, 34, 34, 190, 190, 95);
+      this.drawRoundRectImage(ctx, 439, 143, 240, 240, 25);
+      ctx.closePath();
+      ctx.clip();
+      ctx.drawImage(this.face1, 34, 34, 190, 190);
+      ctx.drawImage(this.face2, 439, 143, 240, 240);
 
-    // Blobを作成
-    const blob = new Blob([buffer.buffer], {
-      type: "image/png",
-    });
+      // BlobオブジェクトにアクセスできるURLを生成
+      const base64 = canvas.toDataURL("image/png");
+      // Base64からバイナリへ変換
+      const bin = atob(base64.replace(/^.*,/, ""));
+      const buffer = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) {
+        buffer[i] = bin.charCodeAt(i);
+      }
 
-    const link = document.createElement("a");
-    link.href = window.URL.createObjectURL(blob);
-    link.download = "eccard.png";
-    link.click();
+      // Blobを作成
+      const blob = new Blob([buffer.buffer], {
+        type: "image/png",
+      });
+
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = "eccard.png";
+      link.click();
+    };
   }
 
   drawRoundRectImage(
@@ -413,16 +418,16 @@ canvas {
 
 .theme--light.v-input.owner-field input {
   color: var(--ownerColor);
-  line-height : 18px;
+  line-height: 18px;
 }
 
 .theme--light.v-input.name-field input {
   color: var(--nameColor);
-  line-height : 18px;
+  line-height: 18px;
 }
 
 .theme--light.v-input.code-field input {
   color: var(--codeColor);
-  line-height : 18px;
+  line-height: 18px;
 }
 </style>
