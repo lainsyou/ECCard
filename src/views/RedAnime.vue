@@ -117,6 +117,7 @@ export default class Red extends Vue {
   uploadTarget = "";
   baseUrl = "/ECCard/img/EC_001.jpg";
   //baseUrl = "/img/test.png";
+  gifUrl = "/ECCard/gif.worker.js";
 
   owner = "";
   name = "";
@@ -414,7 +415,7 @@ export default class Red extends Vue {
       quality: 10,
       width: 840,
       height: 480,
-      workerScript: "/gif.worker.js",
+      workerScript: this.gifUrl,
     });
 
     // エンコード完了時のコールバックを設定
