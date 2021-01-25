@@ -423,7 +423,8 @@ export default class Red extends Vue {
       this.isLoading = false;
       const link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);
-      link.download = "eccard.png";
+      link.download = "eccard.gif";
+      link.target = '_parent';
       link.click();
     });
 
