@@ -5,6 +5,7 @@ import Blue from '../views/Blue.vue'
 import Pink from '../views/Pink.vue'
 import Red from '../views/Red.vue'
 import Gold from '../views/Gold.vue'
+import RedAnime from '../views/RedAnime.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes: Array<RouteConfig> = [
     path: '/ECCard/Gold',
     name: 'Gold',
     component: Gold
+  },
+  {
+    path: '/ECCard/RedAnime',
+    name: 'RedAnime',
+    component: RedAnime
   },
 ]
 

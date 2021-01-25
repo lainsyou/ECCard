@@ -22,6 +22,9 @@
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "gif.js": [
+        "src/types/gif.js"
       ]
     },
     "lib": [

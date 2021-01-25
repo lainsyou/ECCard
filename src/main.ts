@@ -4,8 +4,12 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 
 Vue.config.productionTip = false;
+Vue.use(Loading)
+Vue.component("loading", Loading)
 
 new Vue({
   router,
